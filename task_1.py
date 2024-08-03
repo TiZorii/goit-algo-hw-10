@@ -1,26 +1,26 @@
 import pulp
 
-# Create a problem variable:
-problem = pulp.LpProblem("Maximize_Beverage_Production", pulp.LpMaximize)
+# Створення змінної проблеми:
+problem = pulp.LpProblem("Максимізація_Виробництва_Напоїв", pulp.LpMaximize)
 
-# Decision variables
-x = pulp.LpVariable("Lemonade", lowBound=0, cat='Integer')  # Units of Lemonade to produce
-y = pulp.LpVariable("Fruit_Juice", lowBound=0, cat='Integer')  # Units of Fruit Juice to produce
+# Змінні рішення
+x = pulp.LpVariable("Лимонад", lowBound=0, cat='Integer')  # Кількість одиниць лимонаду для виробництва
+y = pulp.LpVariable("Фруктовий_сік", lowBound=0, cat='Integer')  # Кількість одиниць фруктового соку для виробництва
 
-# Objective Function
-problem += x + y, "Total_Production"
+# Цільова функція
+problem += x + y, "Загальне_Виробництво"
 
-# Constraints
-problem += 2 * x + 1 * y <= 100, "Water_Constraint"
-problem += 1 * x <= 50, "Sugar_Constraint"
-problem += 1 * x <= 30, "Lemon_Juice_Constraint"
-problem += 2 * y <= 40, "Fruit_Puree_Constraint"
+# Обмеження
+problem += 2 * x + 1 * y <= 100, "Обмеження_на_воду"
+problem += 1 * x <= 50, "Обмеження_на_цукор"
+problem += 1 * x <= 30, "Обмеження_на_лимонний_сік"
+problem += 2 * y <= 40, "Обмеження_на_фруктове_пюре"
 
-# Solve the problem
+# Розв'язання задачі
 problem.solve()
 
-# Print the results
-print("Production Plan:")
-print(f"Lemonade: {x.varValue} units")
-print(f"Fruit Juice: {y.varValue} units")
-print(f"Total Production: {pulp.value(problem.objective)} units")
+# Виведення результатів
+print("План виробництва:")
+print(f"Лимонад: {x.varValue} одиниць")
+print(f"Фруктовий сік: {y.varValue} одиниць")
+print(f"Загальне виробництво: {pulp.value(problem.objective)} одиниць")
